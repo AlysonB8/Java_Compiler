@@ -1,6 +1,7 @@
 
-package lexer;
+//package lexer;
 import java.io.*;
+//import lexer.Token;
 import java.util.*;
 
 public class Lexer {
@@ -27,39 +28,14 @@ public class Lexer {
 
 		// Handling  line comment.
 
-		if (peek == '/') {
 
-			peek = (char)System.in.read();
-			// This is handling line commments.
-			if (peek == '/') {
-				do {
-					peek = (char)System.in.read();
-				} while (peek != '\n')
-				line = line + 1;
-			} /*   */
-			// This is reading block comments.
-			else if (peek == '*') {
-				do {
-					peek = (char)System.in.read();
-					if (peek == '*') {
-						peek = (char)System.in.read();
-						if (peek == '/'){
-							break;
-						}
-					}
-					else if (peek == '\n') {
-						line = line + 1;
-					}
- 				} while (true)
-			}
-		}
-		
 		if (Character.isDigit(peek)) {
 			int v = 0;
 			do {
 				v = 10 * v + Character.digit(peek, 10);
 				peek = (char)System.in.read();
 			} while(Character.isDigit(peek));
+			return new Num(v);
 		}
 
 		if (Character.isLetter(peek)) {
@@ -71,16 +47,52 @@ public class Lexer {
 		
 			String s = b.toString();
 			Word w = (Word)words.get(s);
-			if (w != NULL)
+			if (w != null)
 				return w;
 
 			w = new Word(Tag.ID, s);
 			words.put(s, w);
 			return w;
 		}
+		if (peek == '/') {
 
+			peek = (char)System.in.read();
+			// This is handling line commments.
+			if (peek == '/') {
+				System.out.println("COMMENT DETECTED : type //");	
+				do {
+					peek = (char)System.in.read();
+					System.out.println(peek);
+				} while (peek != '\n');
+				line = line + 1;
+			} /*   */
+			// This is reading block comments.
+			else if (peek == '*') {
+				System.out.println("COMMENT DETECTED : type /* */");
+				do {
+					peek = (char)System.in.read();
+					if (peek == '*') {
+						peek = (char)System.in.read();
+						if (peek == '/'){
+							break;
+						}
+					}
+					else if (peek == '\n') {
+						line = line + 1;
+					}
+ 				} while (true);
+			}
+		}
 		Token t = new Token(peek);
 		peek = ' ';
 		return t;
 	}
+/*
+	public static void main(String... args) {
+		Lexer lexer = Lexer();
+		Token t = lexer.scan();
+		System.out.println(t);
+
+	}*/
+
 }

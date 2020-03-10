@@ -1,14 +1,17 @@
 
-package main;
+//import lexer.*;
 import java.io.*;
-import lexer.*;
-import parser.*;
 
-public class Main() {
-	public static void main(String[] args) throws IOException {
-		Lexer lexer = new Lexer();
-		Parser parse = new Parser(lex);
-		parse.program();
-		System.out.write("\n")
+public class Main {
+	public static void main(String... args) {
+		Lexer lexer =  new Lexer();
+		try {
+			Token t = lexer.scan();
+			System.out.println(t);
+		} catch(IOException ioe) {
+			ioe.printStackTrace();
+		}
+
+
 	}
 }
