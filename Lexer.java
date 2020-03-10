@@ -24,11 +24,36 @@ public class Lexer {
 			else break;
 		}
 		boolean comment_slash = false;
-		for (; ; peek = (char)System.in.read()) {
 
+		// Handling  line comment.
 
+		if (peek == '/') {
+
+			peek = (char)System.in.read();
+			// This is handling line commments.
+			if (peek == '/') {
+				do {
+					peek = (char)System.in.read();
+				} while (peek != '\n')
+				line = line + 1;
+			} /*   */
+			// This is reading block comments.
+			else if (peek == '*') {
+				do {
+					peek = (char)System.in.read();
+					if (peek == '*') {
+						peek = (char)System.in.read();
+						if (peek == '/'){
+							break;
+						}
+					}
+					else if (peek == '\n') {
+						line = line + 1;
+					}
+ 				} while (true)
+			}
 		}
-	
+		
 		if (Character.isDigit(peek)) {
 			int v = 0;
 			do {
