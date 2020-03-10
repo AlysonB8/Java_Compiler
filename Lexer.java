@@ -23,6 +23,11 @@ public class Lexer {
 			else if (peek == '\n') line = line + 1;
 			else break;
 		}
+		boolean comment_slash = false;
+		for (; ; peek = (char)System.in.read()) {
+
+
+		}
 	
 		if (Character.isDigit(peek)) {
 			int v = 0;
