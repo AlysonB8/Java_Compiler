@@ -1,4 +1,3 @@
-
 //package lexer;
 public class Word extends Token {
 	public final String lexeme;
