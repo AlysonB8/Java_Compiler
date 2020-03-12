@@ -4,6 +4,8 @@ import java.io.*;
 //import lexer.Token;
 import java.util.*;
 
+// > >= == <= < != && || 
+
 public class Lexer {
 	public int line = 1;
 	private char peek = ' ';
@@ -23,7 +25,24 @@ public class Lexer {
 		reserve(new Word(Tag.BREAK, "break"));
 
 	}
+	private Comparison ComparisonOperands() throws SyntaxError, IOException {
+		do {
+			char before = peek;
+			peek = (char)System.in.read();
 
+			if ((before == '=' || before == '>' || before == '<' || before == '!') && peek != '=') {
+				throw new SyntaxError("Syntax Error.");
+			}
+			else if (before == '&' && peek != '&') {
+				throw new SyntaxError("Syntax Error.");
+			}
+
+			System.out.println("SUCESS");
+
+		} while (operator_symbols.indexOf(peek) != -1);
+		//System.out.println("soighaosidhg");
+		return null;
+	}
 	private Float toFloat(int v) {
 		float x = (float)v;
 		float by_ten = 10;
@@ -76,7 +95,11 @@ public class Lexer {
 		}
 
 		if (operator_symbols.indexOf(peek) > 0) {
-			System.out.println("HOORAY");
+			try {
+				return this.ComparisonOperands();
+			} catch (Exception e) {
+				System.exit(1);
+			}	
 		}
 
 		if (peek == '/') {
@@ -104,7 +127,7 @@ public class Lexer {
 					}
  				} while (true);
 			}
-
+		
 
 		}
 		Token t = new Token(peek);
