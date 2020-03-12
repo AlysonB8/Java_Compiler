@@ -19,6 +19,11 @@ writing makes a lot of sense. I actually know what I'm doing in Java!:D
 
 -Extend the Lexer class to handle Relational Operator (< > == != >= ...)
 
+-Extend the lexer class to handle Punctuation ( { } , ; ( ) )
+
+-Add tokens for each keyword (if else for char int )
+
+-Add tokens for constants (strings/literals, numbers, etc)
 
 ## When I started
 I've just started with working on the Front End (tokenizing, lexing etc).
