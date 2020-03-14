@@ -7,6 +7,6 @@ public class Tag {
 		EQ  = 261, FALSE = 262, GE    = 263, ID   = 264, IF   = 265,
 		INDEX = 266, LE = 267, MINUS = 268, NE = 269, NUM = 270,
 		OR  = 271, REAL = 270, TEMP = 273, TRUE = 274, WHILE = 275,
-		NOT = 276;
+		NOT = 276, COMP = 277, PUNCT = 278; 
 
 }

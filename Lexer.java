@@ -10,6 +10,7 @@ public class Lexer {
 	public int line = 1;
 	private char peek = ' ';
 	private final String operator_symbols = "&=>|<!";
+	private final String punctuation_marks = "{}();,";
 	private Hashtable words = new Hashtable();
 
 	void reserve(Word t) {
@@ -26,23 +27,39 @@ public class Lexer {
 
 	}
 	private Comparison ComparisonOperands() throws SyntaxError, IOException {
+		StringBuffer b = new StringBuffer();
 		do {
+
 			char before = peek;
 			peek = (char)System.in.read();
 
-			if ((before == '=' || before == '>' || before == '<' || before == '!') && peek != '=') {
+			if (peek == '\n')
+				break;
+	
+			else if ((before == '=' || before == '>' || before == '<' || before == '!') && peek != '=') {
 				throw new SyntaxError("Syntax Error.");
 			}
 			else if (before == '&' && peek != '&') {
 				throw new SyntaxError("Syntax Error.");
 			}
-
+			else if (before == '|' && peek != '|') {
+				throw new SyntaxError("Syntax Error.");
+			}
+			else if (before == '!' && peek != '=') {
+				throw new SyntaxError("Syntax Error.");
+			}
+			b.append(before);
+			b.append(peek);
 			System.out.println("SUCESS");
-
-		} while (operator_symbols.indexOf(peek) != -1);
+		} while (peek != '\n');
 		//System.out.println("soighaosidhg");
-		return null;
+		String s = b.toString();
+		System.out.println("Returning");
+		return new Comparison(Tag.COMP, s);
 	}
+
+
+
 	private Float toFloat(int v) {
 		float x = (float)v;
 		float by_ten = 10;
@@ -92,6 +109,10 @@ public class Lexer {
 			w = new Word(Tag.ID, s);
 			words.put(s, w);
 			return w;
+		}
+
+		if (punctuation_marks.indexOf(peek) != -1) {
+			return new Punctuation(Tag.PUNCT, peek);
 		}
 
 		if (operator_symbols.indexOf(peek) > 0) {
