@@ -1,12 +1,8 @@
-
+//package lexer;
 public class Comparison extends Token {
-	public String value;
-
-	public Comparison(int t, String comp_value) {
+	public final String comp;
+	public Comparison(int t, String s) {
 		super(t);
-		value = comp_value;
-	}
-	public String toString() {
-		return value;
+		comp = new String(s);
 	}
 }
