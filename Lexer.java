@@ -58,6 +58,16 @@ public class Lexer {
 		return new Comparison(Tag.COMP, s);
 	}
 
+	public Literal HandleLiteral() {
+		StringBuffer b = new StringBuffer();
+		b.append(peek);
+		do {
+			peek = (char)System.in.read();
+			b.append(peek);
+		} while (peek != '\"');
+		String s = new String(b);
+		return new Literal(b);
+	}
 
 
 	private Float toFloat(int v) {
@@ -148,7 +158,10 @@ public class Lexer {
 					}
  				} while (true);
 			}
-		
+			
+			if (peek == '\"') {
+				return this.HandleLiteral();
+			}		
 
 		}
 		Token t = new Token(peek);
