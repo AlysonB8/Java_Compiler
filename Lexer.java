@@ -24,6 +24,12 @@ public class Lexer {
 		reserve(new Word(Tag.ELSE, "else"));
 		reserve(new Word(Tag.DO, "do"));
 		reserve(new Word(Tag.BREAK, "break"));
+		reserve(Word.True);
+		reserve(Word.False);
+		reserve(Type.Int);
+		reserve(Type.Char);
+		reserve(Type.Bool);
+		reserve(Type.Float);
 
 	}
 	private Comparison ComparisonOperands() throws SyntaxError, IOException {
